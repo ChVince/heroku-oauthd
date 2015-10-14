@@ -16,12 +16,12 @@ module.exports = function(app) {
         return console.log(e);
       });
       KeysetService.get($stateParams.key, $scope.provider).then(function(keyset) {
-        var k, v, _ref;
+        var k, ref, v;
         $scope.keyset = keyset;
         $scope.original = {};
-        _ref = $scope.keyset.parameters;
-        for (k in _ref) {
-          v = _ref[k];
+        ref = $scope.keyset.parameters;
+        for (k in ref) {
+          v = ref[k];
           $scope.original[k] = v;
         }
         $scope.keysetEditorControl.setKeyset($scope.keyset);

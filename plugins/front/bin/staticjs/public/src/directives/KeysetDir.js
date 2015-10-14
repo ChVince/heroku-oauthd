@@ -15,16 +15,16 @@ module.exports = function(app) {
           $scope.control = $scope.control;
           update = function() {
             return ProviderService.get($scope.provider).then(function(config) {
-              var field, input, k, kk, param_config, selectize, values, vv, _ref, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
-              $scope.available_parameters = (config != null ? (_ref = config.oauth2) != null ? _ref.parameters : void 0 : void 0) || (config != null ? (_ref1 = config.oauth1) != null ? _ref1.parameters : void 0 : void 0) || (config != null ? config.parameters : void 0);
+              var field, input, k, kk, param_config, ref, ref1, ref2, ref3, ref4, ref5, ref6, results, selectize, values, vv;
+              $scope.available_parameters = (config != null ? (ref = config.oauth2) != null ? ref.parameters : void 0 : void 0) || (config != null ? (ref1 = config.oauth1) != null ? ref1.parameters : void 0 : void 0) || (config != null ? config.parameters : void 0);
               $elt.html('');
-              _results = [];
+              results = [];
               for (k in $scope.available_parameters) {
                 param_config = $scope.available_parameters[k];
                 field = $(document.createElement('div'));
                 $elt.append(field);
                 field.append('<div><strong>' + k + '</strong></div>');
-                if (((_ref2 = $scope.available_parameters[k]) != null ? _ref2.values : void 0) != null) {
+                if (((ref2 = $scope.available_parameters[k]) != null ? ref2.values : void 0) != null) {
                   values = [];
                   for (kk in $scope.available_parameters[k].values) {
                     vv = $scope.available_parameters[k].values[kk];
@@ -36,14 +36,15 @@ module.exports = function(app) {
                   if ((param_config.cardinality != null) && param_config.cardinality === '*') {
                     input = $(document.createElement('input'));
                     field.append(input);
-                    input.val((_ref3 = $scope.keyset) != null ? (_ref4 = _ref3.parameters) != null ? _ref4[k] : void 0 : void 0);
+                    input.val((ref3 = $scope.keyset) != null ? (ref4 = ref3.parameters) != null ? ref4[k] : void 0 : void 0);
                     selectize = input.selectize({
                       delimiter: ' ',
-                      persist: false,
+                      persist: true,
                       valueField: 'name',
                       labelField: 'value',
                       searchField: ['name', 'value'],
                       options: values,
+                      create: true,
                       render: {
                         item: function(item, escape) {
                           return '<div><span class="name">' + item.name + '</span></div>';
@@ -75,11 +76,12 @@ module.exports = function(app) {
                     field.append(input);
                     selectize = input.selectize({
                       delimiter: ' ',
-                      persist: false,
+                      persist: true,
                       valueField: 'name',
                       labelField: 'value',
                       searchField: ['name', 'value'],
                       options: values,
+                      create: true,
                       render: {
                         item: function(item, escape) {
                           return '<div><span class="name">' + item.name + '</span></div>';
@@ -98,24 +100,24 @@ module.exports = function(app) {
                         }
                       }
                     });
-                    _results.push((function(selectize, k) {
-                      var _ref5, _ref6;
+                    results.push((function(selectize, k) {
+                      var ref5, ref6;
                       selectize = selectize[0].selectize;
-                      selectize.addItem((_ref5 = $scope.keyset) != null ? (_ref6 = _ref5.parameters) != null ? _ref6[k] : void 0 : void 0);
+                      selectize.addItem((ref5 = $scope.keyset) != null ? (ref6 = ref5.parameters) != null ? ref6[k] : void 0 : void 0);
                       return selectize.on('change', function() {
                         $scope.keyset.parameters[k] = this.getValue();
                         return $scope.control.change();
                       });
                     })(selectize, k));
                   } else {
-                    _results.push(void 0);
+                    results.push(void 0);
                   }
                 } else {
                   input = $(document.createElement('input'));
                   field.append(input);
                   input.addClass('form-control');
-                  input.val((_ref5 = $scope.keyset) != null ? (_ref6 = _ref5.parameters) != null ? _ref6[k] : void 0 : void 0);
-                  _results.push((function(k, input) {
+                  input.val((ref5 = $scope.keyset) != null ? (ref6 = ref5.parameters) != null ? ref6[k] : void 0 : void 0);
+                  results.push((function(k, input) {
                     return input.change(function() {
                       $scope.keyset.parameters[k] = input.val();
                       return $scope.control.change();
@@ -123,7 +125,7 @@ module.exports = function(app) {
                   })(k, input));
                 }
               }
-              return _results;
+              return results;
             }).fail(function(e) {
               return console.log(e);
             });

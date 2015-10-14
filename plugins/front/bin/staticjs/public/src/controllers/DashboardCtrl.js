@@ -5,8 +5,8 @@ async = require('async');
 module.exports = function(app) {
   return app.controller('DashboardCtrl', [
     '$state', '$scope', '$rootScope', '$location', 'UserService', 'AppService', 'PluginService', function($state, $scope, $rootScope, $location, UserService, AppService, PluginService) {
-      var _ref;
-      if (($rootScope.accessToken == null) || ((_ref = $rootScope.loginData) != null ? _ref.expires : void 0) < new Date().getTime()) {
+      var ref;
+      if (($rootScope.accessToken == null) || ((ref = $rootScope.loginData) != null ? ref.expires : void 0) < new Date().getTime()) {
         $state.go('login');
       }
       PluginService.getAll().then(function(plugins) {

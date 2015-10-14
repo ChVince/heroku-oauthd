@@ -7,7 +7,7 @@ restify = require('restify');
 restifyOAuth2 = require('restify-oauth2-oauthd');
 
 module.exports = function(env) {
-  var auth, db_login, db_register, hooks, _config;
+  var _config, auth, db_login, db_register, hooks;
   auth = {};
   _config = {
     expire: 3600 * 5
@@ -51,7 +51,7 @@ module.exports = function(env) {
     });
   });
   hooks = {
-    grantClientToken: function(clientId, clientSecret, cb) {
+    grantClientToken: function(credentials, req, cb) {
       var next;
       if (env.data.redis.last_error) {
         return cb(new env.utilities.check.Error(env.data.redis.last_error));
@@ -67,8 +67,8 @@ module.exports = function(env) {
         });
       };
       return db_login({
-        name: clientId,
-        pass: clientSecret
+        name: credentials.clientId,
+        pass: credentials.clientSecret
       }, function(err, res) {
         if (err) {
           if (err.message === "Invalid email or password") {
@@ -82,8 +82,8 @@ module.exports = function(env) {
           return next();
         }
         return db_register({
-          name: clientId,
-          pass: clientSecret
+          name: credentials.clientId,
+          pass: credentials.clientSecret
         }, function(err, res) {
           if (err) {
             return cb(err);
@@ -92,7 +92,7 @@ module.exports = function(env) {
         });
       });
     },
-    authenticateToken: function(token, cb) {
+    authenticateToken: function(token, req, cb) {
       if (env.data.redis.last_error) {
         return cb(null, false);
       }
@@ -103,13 +103,15 @@ module.exports = function(env) {
         if (!res) {
           return cb(null, false);
         }
-        return cb(null, res);
+        req.clientId = res;
+        req.token = token;
+        return cb(null, true);
       });
     }
   };
   env.middlewares.auth = {};
   env.middlewares.auth.needed = function(req, res, next) {
-    var cb, token, _ref;
+    var cb, ref, token;
     cb = function() {
       req.user = req.clientId;
       req.user.id = 'admin';
@@ -124,7 +126,7 @@ module.exports = function(env) {
     if (req.clientId) {
       return cb();
     }
-    token = (_ref = req.headers.Authorization) != null ? _ref.replace(/^Bearer /, '') : void 0;
+    token = (ref = req.headers.Authorization) != null ? ref.replace(/^Bearer /, '') : void 0;
     if (!token) {
       return next(new restify.ResourceNotFoundError(req.url + ' does not exist'));
     }
@@ -137,7 +139,7 @@ module.exports = function(env) {
     });
   };
   env.middlewares.auth.optional = function(req, res, next) {
-    var cb, token, _ref;
+    var cb, ref, token;
     cb = function() {
       req.user = req.clientId;
       req.user.id = 'admin';
@@ -152,7 +154,7 @@ module.exports = function(env) {
     if (req.clientId) {
       return cb();
     }
-    token = (_ref = req.headers.cookie) != null ? _ref.match(/accessToken=%22(.*?)%22/) : void 0;
+    token = (ref = req.headers.cookie) != null ? ref.match(/accessToken=%22(.*?)%22/) : void 0;
     token = token != null ? token[1] : void 0;
     if (!token) {
       return cb();
@@ -176,13 +178,17 @@ module.exports = function(env) {
     env.server.post(env.config.base + '/signin', (function(_this) {
       return function(req, res, next) {
         res.setHeader('Content-Type', 'text/html');
-        return hooks.grantClientToken(req.body.name, req.body.pass, function(e, token) {
+        return hooks.grantClientToken({
+          clientId: req.body.name,
+          clientSecret: req.body.pass
+        }, req, function(e, token) {
           var expireDate;
           if (!e && !token) {
             e = new env.utilities.check.Error('Invalid email or password');
           }
           if (token) {
             expireDate = new Date((new Date - 0) + _config.expire * 1000);
+            res.setHeader('Content-Type', '');
             res.json({
               accessToken: token,
               expires: expireDate.getTime()

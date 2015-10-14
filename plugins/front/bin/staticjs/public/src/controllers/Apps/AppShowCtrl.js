@@ -49,16 +49,16 @@ module.exports = function(app) {
         }
       };
       AppService.getBackend($stateParams.key).then(function(backend) {
-        var k, v, _ref, _ref1;
+        var k, ref, ref1, v;
         $scope.original_backend = {};
         $scope.original_backend.name = backend != null ? backend.name : void 0;
-        if (!((_ref = $scope.original_backend) != null ? _ref.name : void 0)) {
+        if (!((ref = $scope.original_backend) != null ? ref.name : void 0)) {
           $scope.original_backend.name = 'none';
         }
         $scope.backend = {};
-        _ref1 = $scope.original_backend;
-        for (k in _ref1) {
-          v = _ref1[k];
+        ref1 = $scope.original_backend;
+        for (k in ref1) {
+          v = ref1[k];
           $scope.backend[k] = v;
         }
         console.log($scope.backend);
@@ -79,8 +79,8 @@ module.exports = function(app) {
               return cb(e);
             });
           }, function(cb) {
-            var _ref;
-            return AppService.setBackend($stateParams.key, (_ref = $scope.backend) != null ? _ref.name : void 0).then(function() {
+            var ref;
+            return AppService.setBackend($stateParams.key, (ref = $scope.backend) != null ? ref.name : void 0).then(function() {
               return cb();
             }).fail(function(e) {
               return cb(e);
@@ -137,11 +137,11 @@ module.exports = function(app) {
         return $scope.$apply();
       };
       return $scope.tryAuth = function(provider, key) {
-        var params, type, _ref;
+        var params, ref, type;
         OAuth.setOAuthdURL(window.location.origin);
         OAuth.initialize(key);
         type = 'client';
-        if (((_ref = $scope.app.backend) != null ? _ref.name : void 0) === 'firebase') {
+        if (((ref = $scope.app.backend) != null ? ref.name : void 0) === 'firebase') {
           type = 'baas';
         }
         if ($scope.app.backend && $scope.app.backend.name !== 'firebase') {
@@ -174,8 +174,8 @@ module.exports = function(app) {
                   return type;
                 },
                 backend: function() {
-                  var _ref1;
-                  return (_ref1 = $scope.app.backend) != null ? _ref1.name : void 0;
+                  var ref1;
+                  return (ref1 = $scope.app.backend) != null ? ref1.name : void 0;
                 }
               }
             });
@@ -203,8 +203,8 @@ module.exports = function(app) {
                 return type;
               },
               backend: function() {
-                var _ref1;
-                return (_ref1 = $scope.app.backend) != null ? _ref1.name : void 0;
+                var ref1;
+                return (ref1 = $scope.app.backend) != null ? ref1.name : void 0;
               }
             }
           });

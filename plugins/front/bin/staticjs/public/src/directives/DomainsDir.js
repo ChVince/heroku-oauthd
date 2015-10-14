@@ -10,7 +10,7 @@ module.exports = function(app) {
           app: '='
         },
         link: function($scope, $element) {
-          var add_listener, k, remove_listener, selectize_elem, v, _ref, _ref1;
+          var add_listener, k, ref, ref1, remove_listener, selectize_elem, v;
           selectize_elem = $($element[0]).selectize({
             delimiter: ' ',
             persist: false,
@@ -31,10 +31,10 @@ module.exports = function(app) {
             domains = value.split(' ');
             return domains;
           };
-          if (((_ref = $scope.app) != null ? _ref.domains : void 0) != null) {
-            _ref1 = $scope.app.domains;
-            for (k in _ref1) {
-              v = _ref1[k];
+          if (((ref = $scope.app) != null ? ref.domains : void 0) != null) {
+            ref1 = $scope.app.domains;
+            for (k in ref1) {
+              v = ref1[k];
               $scope.selectize.addOption({
                 text: v,
                 value: v
@@ -57,15 +57,15 @@ module.exports = function(app) {
             return $scope.selectize.off('change');
           };
           $scope.control.refresh = function(app) {
-            var _i, _len, _ref2;
+            var i, len, ref2;
             remove_listener();
             $scope.selectize.clear();
             if (app != null) {
               $scope.app = app;
             }
-            _ref2 = $scope.app.domains;
-            for (_i = 0, _len = _ref2.length; _i < _len; _i++) {
-              v = _ref2[_i];
+            ref2 = $scope.app.domains;
+            for (i = 0, len = ref2.length; i < len; i++) {
+              v = ref2[i];
               $scope.selectize.addOption({
                 text: v,
                 value: v

@@ -22,13 +22,13 @@ module.exports = function(app) {
           $scope.apps = apps;
           return async.eachSeries(apps, function(app, next) {
             return AppService.get(app.key).then(function(app_data) {
-              var j, k, v, _ref;
+              var j, k, ref, v;
               for (j in app_data) {
                 app[j] = app_data[j];
               }
-              _ref = app_data.keysets;
-              for (k in _ref) {
-                v = _ref[k];
+              ref = app_data.keysets;
+              for (k in ref) {
+                v = ref[k];
                 $scope.providers[v] = true;
               }
               return next();
@@ -46,15 +46,15 @@ module.exports = function(app) {
           return $scope.$apply();
         });
         PluginService.getAll().then(function(plugins) {
-          var plugin, _i, _len, _results;
+          var i, len, plugin, results;
           $scope.plugins = [];
-          _results = [];
-          for (_i = 0, _len = plugins.length; _i < _len; _i++) {
-            plugin = plugins[_i];
+          results = [];
+          for (i = 0, len = plugins.length; i < len; i++) {
+            plugin = plugins[i];
             plugin.url = "/oauthd/plugins/" + plugin.name;
-            _results.push($scope.plugins.push(plugin));
+            results.push($scope.plugins.push(plugin));
           }
-          return _results;
+          return results;
         }).fail(function(e) {
           return console.log(e);
         })["finally"](function() {
