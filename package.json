@@ -47,7 +47,7 @@
     "fakeredis": "^0.2.1",
     "grunt": "0.4.5",
     "grunt-cli": "0.1.13",
-    "hiredis": "^0.1.17",
+    "hiredis": "^0.4.0",
     "jayschema": "~0.2.0",
     "jsonfile": "^2.0.0",
     "jsonlint": "~1.6.0",
