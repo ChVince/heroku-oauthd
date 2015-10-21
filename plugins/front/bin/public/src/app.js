@@ -143,34 +143,7 @@ app.run([
   }
 ]);
 
-},{"./controllers/Apps/AppCreateCtrl":3,"./controllers/Apps/AppKeysetCtrl":4,"./controllers/Apps/AppProviderListCtrl":5,"./controllers/Apps/AppShowCtrl":6,"./controllers/Apps/AppTryModalCtrl":7,"./controllers/Apps/AppsIndexCtrl":8,"./controllers/AppsCtrl":2,"./controllers/DashboardCtrl":9,"./controllers/HelpCtrl":10,"./controllers/HomeCtrl":11,"./controllers/LoginCtrl":12,"./controllers/Plugins/PluginShowCtrl":13,"./directives/AppThumb":14,"./directives/DomainsDir":15,"./directives/KeysetDir":16,"./filters/filters":17,"./services/AppService":18,"./services/ConfigService":19,"./services/KeysetService":20,"./services/PluginService":21,"./services/ProviderService":22,"./services/UserService":23}],2:[function(require,module,exports){
-module.exports = function(app) {
-  return app.controller('AppsCtrl', [
-    '$state', '$scope', '$rootScope', '$location', function($state, $scope, $rootScope, $location, UserService) {
-      $scope.setApp = function(app) {
-        return $scope.app = app;
-      };
-      $scope.getApp = function() {
-        return $scope.app;
-      };
-      $scope.setProvider = function(provider) {
-        return $scope.provider_name = provider;
-      };
-      $scope.setTitle = function(title) {
-        return $scope.pagetitle = title;
-      };
-      $scope.clearArianne = function() {
-        $scope.app = void 0;
-        return $scope.provider_name = void 0;
-      };
-      return $scope.appModified = function(v) {
-        return $scope.app_changed = v;
-      };
-    }
-  ]);
-};
-
-},{}],3:[function(require,module,exports){
+},{"./controllers/Apps/AppCreateCtrl":2,"./controllers/Apps/AppKeysetCtrl":3,"./controllers/Apps/AppProviderListCtrl":4,"./controllers/Apps/AppShowCtrl":5,"./controllers/Apps/AppTryModalCtrl":6,"./controllers/Apps/AppsIndexCtrl":7,"./controllers/AppsCtrl":8,"./controllers/DashboardCtrl":9,"./controllers/HelpCtrl":10,"./controllers/HomeCtrl":11,"./controllers/LoginCtrl":12,"./controllers/Plugins/PluginShowCtrl":13,"./directives/AppThumb":14,"./directives/DomainsDir":15,"./directives/KeysetDir":16,"./filters/filters":17,"./services/AppService":18,"./services/ConfigService":19,"./services/KeysetService":20,"./services/PluginService":21,"./services/ProviderService":22,"./services/UserService":23}],2:[function(require,module,exports){
 module.exports = function(app) {
   return app.controller('AppCreateCtrl', [
     '$state', '$scope', '$rootScope', '$location', 'UserService', '$stateParams', 'AppService', function($state, $scope, $rootScope, $location, UserService, $stateParams, AppService) {
@@ -190,7 +163,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 module.exports = function(app) {
   return app.controller('AppKeysetCtrl', [
     '$state', '$scope', '$rootScope', '$location', 'UserService', '$stateParams', 'AppService', 'ProviderService', 'KeysetService', function($state, $scope, $rootScope, $location, UserService, $stateParams, AppService, ProviderService, KeysetService) {
@@ -256,7 +229,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],5:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 module.exports = function(app) {
   return app.controller('AppProviderListCtrl', [
     '$state', '$scope', '$rootScope', '$location', '$timeout', '$filter', 'UserService', '$stateParams', 'AppService', 'ProviderService', 'KeysetService', function($state, $scope, $rootScope, $location, $timeout, $filter, UserService, $stateParams, AppService, ProviderService, KeysetService) {
@@ -297,7 +270,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var async;
 
 async = require('async');
@@ -514,7 +487,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{"async":25}],7:[function(require,module,exports){
+},{"async":25}],6:[function(require,module,exports){
 module.exports = function(app) {
   return app.controller('AppTryModalCtrl', [
     '$scope', '$rootScope', '$modalInstance', 'success', 'err', 'provider', 'key', 'type', 'backend', function($scope, $rootScope, $modalInstance, success, err, provider, key, type, backend) {
@@ -533,7 +506,7 @@ module.exports = function(app) {
   ]);
 };
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var async;
 
 async = require('async');
@@ -580,7 +553,34 @@ module.exports = function(app) {
   ]);
 };
 
-},{"async":25}],9:[function(require,module,exports){
+},{"async":25}],8:[function(require,module,exports){
+module.exports = function(app) {
+  return app.controller('AppsCtrl', [
+    '$state', '$scope', '$rootScope', '$location', function($state, $scope, $rootScope, $location, UserService) {
+      $scope.setApp = function(app) {
+        return $scope.app = app;
+      };
+      $scope.getApp = function() {
+        return $scope.app;
+      };
+      $scope.setProvider = function(provider) {
+        return $scope.provider_name = provider;
+      };
+      $scope.setTitle = function(title) {
+        return $scope.pagetitle = title;
+      };
+      $scope.clearArianne = function() {
+        $scope.app = void 0;
+        return $scope.provider_name = void 0;
+      };
+      return $scope.appModified = function(v) {
+        return $scope.app_changed = v;
+      };
+    }
+  ]);
+};
+
+},{}],9:[function(require,module,exports){
 var async;
 
 async = require('async');
