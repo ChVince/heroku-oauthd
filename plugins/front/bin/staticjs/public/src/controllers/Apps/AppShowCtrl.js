@@ -29,9 +29,11 @@ module.exports = function(app) {
           $scope.setApp(app);
           $scope.error = void 0;
           $scope.$apply();
-          return $scope.domains_control.refresh();
+          if ($scope.domains_control.refresh) {
+            return $scope.domains_control.refresh();
+          }
         }).fail(function(e) {
-          console.log(e);
+          console.error(e);
           return $scope.error = e.message;
         });
       };
@@ -43,7 +45,7 @@ module.exports = function(app) {
               key: data.key
             });
           }).fail(function() {
-            console.log(e);
+            console.error(e);
             return $scope.error = e.message;
           });
         }
@@ -61,10 +63,9 @@ module.exports = function(app) {
           v = ref1[k];
           $scope.backend[k] = v;
         }
-        console.log($scope.backend);
         return $scope.$apply();
       }).fail(function(e) {
-        return console.log(e);
+        return console.error(e);
       });
       $scope.saveApp = function() {
         $scope.changed = false;
@@ -74,7 +75,7 @@ module.exports = function(app) {
             return AppService.update($scope.app).then(function() {
               return cb();
             }).fail(function(e) {
-              console.log('error', e);
+              console.error(e);
               $scope.error = e.message;
               return cb(e);
             });
@@ -103,10 +104,10 @@ module.exports = function(app) {
       $scope.deleteApp = function() {
         if (confirm('Are you sure you want to delete this app?')) {
           return AppService.del($scope.app).then(function() {
-            $state.go('dashboard.apps.all');
+            $state.go('dashboard.home');
             return $scope.error = void 0;
           }).fail(function(e) {
-            console.log('error', e);
+            console.error(e);
             return $scope.error = e.message;
           });
         }
@@ -162,7 +163,7 @@ module.exports = function(app) {
                   return res;
                 },
                 err: function() {
-                  return err;
+                  return err && err.message || JSON.stringify(err);
                 },
                 provider: function() {
                   return provider;
@@ -179,10 +180,9 @@ module.exports = function(app) {
                 }
               }
             });
-            console.log(err);
+            console.error(err);
             return false;
           }
-          console.log(res);
           return instance = $modal.open({
             templateUrl: '/templates/dashboard/modals/try-success.html',
             controller: 'AppTryModalCtrl',

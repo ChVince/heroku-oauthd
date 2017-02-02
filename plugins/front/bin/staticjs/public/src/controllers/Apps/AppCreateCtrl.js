@@ -10,7 +10,7 @@ module.exports = function(app) {
             key: app.key
           });
         }).fail(function(e) {
-          console.log('failed', e);
+          console.error(e);
         });
       };
     }

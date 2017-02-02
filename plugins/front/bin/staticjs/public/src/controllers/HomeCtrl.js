@@ -33,14 +33,14 @@ module.exports = function(app) {
               }
               return next();
             }).fail(function(e) {
-              console.log(e);
+              console.error(e);
               return next();
             });
           }, function(err) {
             return $scope.$apply();
           });
         }).fail(function(e) {
-          return console.log("HomeCtrl getAllApps error ", e);
+          return console.error(e);
         })["finally"](function() {
           $scope.loadingApps = false;
           return $scope.$apply();
@@ -56,7 +56,7 @@ module.exports = function(app) {
           }
           return results;
         }).fail(function(e) {
-          return console.log(e);
+          return console.error(e);
         })["finally"](function() {
           return $scope.$apply();
         });
@@ -64,7 +64,7 @@ module.exports = function(app) {
         return ConfigService.getConfig().then(function(config) {
           return $scope.config = config;
         }).fail(function(e) {
-          return console.log("HomeCtrl getConfig error", e);
+          return console.error(e);
         })["finally"](function() {
           $scope.loadingConfig = false;
           return $scope.$apply();

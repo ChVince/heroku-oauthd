@@ -16,13 +16,13 @@ module.exports = function(app) {
               $scope.apps.push(a);
               return cb();
             }).fail(function(e) {
-              return console.log('err', e);
+              return console.error(e);
             });
           }, function(err) {
             return $scope.$apply();
           });
         }).fail(function(e) {
-          return console.log(e);
+          return console.error(e);
         })["finally"](function() {
           $scope.loadingApps = false;
           return $scope.$apply();
@@ -36,7 +36,7 @@ module.exports = function(app) {
           }).then(function() {
             return reloadApps();
           }).fail(function() {
-            return console.log(e);
+            return console.error(e);
           });
         }
       };

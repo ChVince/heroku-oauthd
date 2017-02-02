@@ -21,7 +21,7 @@ module.exports = function(app) {
         }
         return $scope.$apply();
       }).fail(function(e) {
-        return console.log(e);
+        return console.error(e);
       });
       return $scope.state = $state;
     }

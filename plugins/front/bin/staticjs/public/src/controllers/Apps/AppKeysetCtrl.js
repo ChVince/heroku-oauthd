@@ -13,7 +13,7 @@ module.exports = function(app) {
         $scope.setProvider($stateParams.provider);
         return $scope.$apply();
       }).fail(function(e) {
-        return console.log(e);
+        return console.error(e);
       });
       KeysetService.get($stateParams.key, $scope.provider).then(function(keyset) {
         var k, ref, v;
@@ -36,7 +36,7 @@ module.exports = function(app) {
             key: $stateParams.key
           });
         }).fail(function(e) {
-          return console.log('error', e);
+          return console.error(e);
         });
       };
       $scope["delete"] = function() {
@@ -46,7 +46,7 @@ module.exports = function(app) {
               key: $stateParams.key
             });
           }).fail(function(e) {
-            return console.log('error', e);
+            return console.error(e);
           });
         }
       };

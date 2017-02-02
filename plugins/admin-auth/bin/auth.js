@@ -1,6 +1,4 @@
-var crypto, restify, restifyOAuth2;
-
-crypto = require('crypto');
+var restify, restifyOAuth2;
 
 restify = require('restify');
 
@@ -138,6 +136,9 @@ module.exports = function(env) {
       return cb();
     });
   };
+  env.middlewares.auth.needAccess = function(right) {
+    return env.middlewares.auth.needed;
+  };
   env.middlewares.auth.optional = function(req, res, next) {
     var cb, ref, token;
     cb = function() {
@@ -218,6 +219,11 @@ module.exports = function(env) {
     env.events.on('app.create', function(user, app) {
       if (user != null ? user.id : void 0) {
         return env.data.redis.sadd('u:' + user.id + ':apps', app.id);
+      }
+    });
+    env.events.on('app.remove', function(user, app) {
+      if (user != null ? user.id : void 0) {
+        return env.data.redis.srem('u:' + user.id + ':apps', app.id);
       }
     });
     return callback();

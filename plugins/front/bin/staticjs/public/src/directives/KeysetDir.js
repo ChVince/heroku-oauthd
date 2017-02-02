@@ -127,7 +127,7 @@ module.exports = function(app) {
               }
               return results;
             }).fail(function(e) {
-              return console.log(e);
+              return console.error(e);
             });
           };
           if ($scope.provider != null) {

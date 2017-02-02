@@ -10,7 +10,7 @@ module.exports = function(app) {
         }
         return $scope.plugin = plugin;
       }).fail(function(e) {
-        return console.log('An error occured', e);
+        return console.error(e);
       })["finally"](function() {
         return $scope.$apply();
       });

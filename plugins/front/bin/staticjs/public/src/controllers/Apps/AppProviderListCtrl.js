@@ -8,14 +8,14 @@ module.exports = function(app) {
         $scope.setProvider('Add a provider');
         return $scope.$apply();
       }).fail(function(e) {
-        return console.log(e);
+        return console.error(e);
       });
       ProviderService.getAll().then(function(providers) {
         $scope.providers = providers;
         $scope.selectedProviders = providers;
         return $scope.$apply();
       }).fail(function(e) {
-        return console.log(e);
+        return console.error(e);
       })["finally"](function() {
         $scope.loadingProviders = false;
         return $scope.$apply();

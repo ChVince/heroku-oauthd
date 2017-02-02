@@ -8,7 +8,7 @@ module.exports = function(app) {
       return ConfigService.getConfig().then(function(config) {
         return $scope.config = config;
       }).fail(function(e) {
-        return console.log("HomeCtrl getConfig error", e);
+        return console.error(e);
       })["finally"](function() {
         return $scope.$apply();
       });
