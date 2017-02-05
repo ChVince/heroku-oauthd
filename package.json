@@ -11,7 +11,8 @@
   "license": "Apache-2.0",
   "main": "index.js",
   "engines": {
-    "node": ">=6.0.0"
+    "node": "7.x",
+    "npm": "4.x"
   },
   "bin": {
     "oauthd": "./oauthd"
@@ -21,20 +22,6 @@
     "start": "./oauthd start",
     "test": "jasmine-node --coffee --verbose tests/spec"
   },
-  "devDependencies": {
-    "browserify": "^13.1.1",
-    "coffee-script": "^1.11.1",
-    "grunt": "^1.0.1",
-    "grunt-browserify": "^5.0.0",
-    "grunt-contrib-coffee": "^1.0.0",
-    "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-requirejs": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-subgrunt": "^1.2.0",
-    "mock-fs": "^3.12.1",
-    "rewire": "^2.5.2"
-  },
   "keywords": [],
   "directories": {
     "test": "test"
@@ -42,15 +29,26 @@
   "dependencies": {
     "async": "^2.1.2",
     "body-parser": "^1.15.2",
+    "browserify": "^13.1.1",
+    "coffee-script": "^1.11.1",
     "colors": "^1.1.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "fakeredis": "^1.0.3",
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
     "grunt-cli": "^1.2.0",
+    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-requirejs": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-subgrunt": "^1.2.0",
     "ioredis": "^2.4.0",
     "jsonfile": "^2.4.0",
     "minimist": "^1.2.0",
+    "mock-fs": "^3.12.1",
     "ncp": "^2.0.0",
     "nodemailer": "^2.6.4",
     "prompt": "^1.0.0",
@@ -58,6 +56,7 @@
     "qs": "^6.3.0",
     "request": "^2.78.0",
     "restify": "^4.3.0",
+    "rewire": "^2.5.2",    
     "rimraf": "^2.5.4",
     "sugar": "^2.0.2",
     "ua-parser-js": "^0.7.12",
